@@ -47,8 +47,8 @@ struct ArtDetailView: View {
                     VStack(spacing: 16) {
                         HStack(alignment: .center) {
                             Text("Credit: \(artwork.credit ?? "")")
-                                .foregroundStyle(.gray)
-                                .font(.system(size: 12))
+                                .size12()
+                                .foregroundStyle(Constants.colorGrey)
                             Spacer()
                             ArtDetailSaveButton(action: saveAction, disabled: isSaved)
                         }
@@ -83,9 +83,7 @@ struct ArtDetailSaveButton: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 4)
         .background(
-            disabled
-            ? Color(red: 203/255, green: 203/255, blue: 203/255)
-            : Color(red: 162/255, green: 0, blue: 0)
+            disabled ? Constants.colorDisabled : Constants.colorMain
         )
         .clipShape(Capsule())
         .disabled(disabled)
@@ -99,9 +97,12 @@ struct ArtDetailInfoView: View {
     var body: some View {
         if let info = info {
             VStack(alignment: .leading, spacing: 4) {
-                Text(title).bold()
-                Text(info).foregroundStyle(.gray)
-                    .font(.system(size: 12))
+                Text(title)
+                    .size12()
+                    .bold()
+                Text(info)
+                    .size12()
+                    .foregroundStyle(Constants.colorGrey)
             }.frame(maxWidth: .infinity)
         }
     }

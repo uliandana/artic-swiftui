@@ -26,6 +26,7 @@ struct artic_swiftuiApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environment(\.font, .custom("PlayfairDisplay-Regular", size: 16))
         }
         .modelContainer(sharedModelContainer)
     }

@@ -21,7 +21,7 @@ struct RootView: View {
         .tint(mainColor)
         .onAppear {
             UITabBar.appearance().backgroundColor = .clear
-            UITabBar.appearance().unselectedItemTintColor = .gray
+            UITabBar.appearance().unselectedItemTintColor = UIColor(Constants.colorGrey)
         }
     }
 }

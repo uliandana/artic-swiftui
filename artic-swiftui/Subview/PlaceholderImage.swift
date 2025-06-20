@@ -10,7 +10,9 @@ import SwiftUI
 struct PlaceholderImage: View {
     var size: CGFloat
     var body: some View {
-        Rectangle().frame(width: size, height: size).foregroundStyle(.gray)
+        Rectangle()
+            .frame(width: size, height: size)
+            .foregroundStyle(Constants.colorGrey)
     }
 }
 

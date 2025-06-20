@@ -15,6 +15,7 @@ struct HomeView: View {
         NavigationStack {
             VStack {
                 TextField("placeholder", text: $viewModel.search)
+                    .textSize12()
                     .padding(8)
                     .background(.white)
                     .border(mainColor, width: 1)

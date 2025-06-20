@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BottomBar: View {
-    let mainColor: Color = Color(red: 162/255, green: 0, blue: 0)
     var body: some View {
         HStack(alignment: .center) {
             NavigationLink {
@@ -16,11 +15,11 @@ struct BottomBar: View {
             } label: {
                 VStack(alignment: .center) {
                     Image(systemName: "house.fill")
-                        .foregroundStyle(mainColor)
+                        .foregroundStyle(Constants.colorMain)
                         .frame(width: 32, height: 32)
                     Text("Home")
-                        .foregroundStyle(mainColor)
-                        .font(.custom("Poppins", size: 12))
+                        .size12()
+                        .foregroundStyle(Constants.colorMain)
                 }
                 .frame(width: 64, height: 64)
             }
@@ -30,11 +29,11 @@ struct BottomBar: View {
             } label: {
                 VStack(alignment: .center) {
                     Image(systemName: "square.and.arrow.down.fill")
-                        .foregroundStyle(mainColor)
+                        .foregroundStyle(Constants.colorMain)
                         .frame(width: 32, height: 32)
                     Text("Saved")
-                        .foregroundStyle(mainColor)
-                        .font(.custom("Poppins", size: 12))
+                        .size12()
+                        .foregroundStyle(Constants.colorMain)
                 }
                 .frame(width: 64, height: 64)
             }

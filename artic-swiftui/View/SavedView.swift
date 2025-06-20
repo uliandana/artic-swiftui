@@ -16,7 +16,7 @@ struct SavedView: View {
     func onRemoveItem(_ item: SavedArtwork) {
         context.delete(item)
     }
-
+    
     var body: some View {
         ZStack {
             ScrollView {
@@ -64,24 +64,24 @@ struct SavedItemView: View {
                 .frame(width: imageSize, height: imageSize)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .clipped()
-            HStack(alignment: .bottom, spacing: 8) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(data.title)
-                        .fontWeight(.semibold)
-                        .font(.system(size: 14))
-                    Text(data.bodyText)
-                        .foregroundStyle(.gray)
-                        .font(.system(size: 12))
+            VStack(alignment: .leading, spacing: 4) {
+                Text(data.title)
+                    .size14()
+                    .fontWeight(.semibold)
+                Text(data.bodyText)
+                    .size12()
+                    .foregroundStyle(Constants.colorGrey)
+                HStack(alignment: .bottom, spacing: 8) {
                     Text("Score: 6.1")
-                        .foregroundStyle(.gray)
-                        .font(.system(size: 12))
+                        .size12()
+                        .foregroundStyle(Constants.colorGrey)
+                    Spacer()
+                    Image(systemName: "trash")
+                        .foregroundStyle(Constants.colorMain)
+                        .onTapGesture {
+                            onRemove(data)
+                        }
                 }
-                Spacer()
-                Image(systemName: "trash")
-                    .foregroundStyle(.red)
-                    .onTapGesture {
-                        onRemove(data)
-                    }
             }
         }
     }
