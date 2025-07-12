@@ -14,5 +14,8 @@ struct Constants {
 }
 
 struct Config {
-    static let typography = "Playfair_Display"
+    static let typography = "PlayfairDisplay-Regular"
+    static func imageUrl(imageId: String) -> URL? {
+        return URL(string: "https://www.artic.edu/iiif/2/\(imageId)/full/843,/0/default.jpg")
+    }
 }

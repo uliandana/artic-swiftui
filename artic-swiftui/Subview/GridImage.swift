@@ -14,18 +14,17 @@ struct GridImage: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    
+    private let imageSize = (UIScreen.main.bounds.width - 16) / 3
+//    private let imageSize = 118
 
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 4) {
+            LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(items) { item in
-                    let url = URL(string: "https://www.artic.edu/iiif/2/\(item.imageId ?? "")/full/843,/0/default.jpg")
+                    let url = Config.imageUrl(imageId: item.imageId ?? "")
                     AsyncImage(url: url) { phase in
                         switch phase {
-                        case .empty:
-                            PlaceholderImage(size: 118)
-                        case .failure:
-                            PlaceholderImage(size: 118)
                         case .success(let image):
                             NavigationLink {
                                 ArtDetailView(artwork: item, image: image)
@@ -33,11 +32,11 @@ struct GridImage: View {
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: 118, height: 118)
+                                    .frame(width: imageSize, height: imageSize)
                                     .clipped()
                             }
-                        @unknown default:
-                            PlaceholderImage(size: 118)
+                        default:
+                            PlaceholderImage(size: imageSize)
                         }
                     }
                 }

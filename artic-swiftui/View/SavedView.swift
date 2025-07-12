@@ -22,22 +22,12 @@ struct SavedView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     ForEach(artworks) { item in
-                        let url = URL(string: "https://www.artic.edu/iiif/2/\(item.imageId)/full/843,/0/default.jpg")
+                        let url = Config.imageUrl(imageId: item.imageId)
                         AsyncImage(url: url) { phase in
                             switch phase {
-                            case .empty:
-                                PlaceholderImage(size: imageSize)
-                                    .foregroundStyle(.clear)
-                                    .border(.gray, width: 1)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                            case .failure:
-                                PlaceholderImage(size: imageSize)
-                                    .foregroundStyle(.clear)
-                                    .border(.gray, width: 1)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
                             case .success(let image):
                                 SavedItemView(image: image, data: item, onRemove: onRemoveItem)
-                            @unknown default:
+                            default:
                                 PlaceholderImage(size: imageSize)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                             }
