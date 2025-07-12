@@ -14,12 +14,14 @@ final class SavedArtwork {
     var title: String
     var imageId: String
     var bodyText: String
+    var dateAdded: Date
     
     init (artwork: Artwork) {
         self.id = artwork.id ?? 0
         self.title = artwork.title ?? ""
         self.imageId = artwork.imageId ?? ""
         self.bodyText = artwork.description ?? ""
+        self.dateAdded = Date()
     }
 }
 

@@ -10,26 +10,24 @@ import SwiftData
 
 struct SavedView: View {
     @Environment(\.modelContext) private var context
-    @Query(sort: \SavedArtwork.id, order: .reverse) private var artworks: [SavedArtwork]
+    @Query(sort: \SavedArtwork.dateAdded, order: .reverse) private var artworks: [SavedArtwork]
     private let imageSize = UIScreen.main.bounds.width - 32
-    
-    func onRemoveItem(_ item: SavedArtwork) {
-        context.delete(item)
-    }
     
     var body: some View {
         ZStack {
             ScrollView {
-                VStack(spacing: 16) {
+                LazyVStack(spacing: 16) {
                     ForEach(artworks) { item in
                         let url = Config.imageUrl(imageId: item.imageId)
                         AsyncImage(url: url) { phase in
                             switch phase {
                             case .success(let image):
                                 SavedItemView(image: image, data: item, onRemove: onRemoveItem)
-                            default:
+                            case .empty:
                                 PlaceholderImage(size: imageSize)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
+                            default:
+                                SavedItemView(image: nil, data: item, onRemove: onRemoveItem)
                             }
                         }
                     }
@@ -41,19 +39,30 @@ struct SavedView: View {
     }
 }
 
+extension SavedView {
+    func onRemoveItem(_ item: SavedArtwork) {
+        context.delete(item)
+    }
+}
+
 struct SavedItemView: View {
-    var image: Image
+    var image: Image?
     var data: SavedArtwork
     var onRemove: (_ item: SavedArtwork) -> Void
     private let imageSize = UIScreen.main.bounds.width - 32
     var body: some View {
         VStack(spacing: 8) {
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: imageSize, height: imageSize)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .clipped()
+            if let image = image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: imageSize, height: imageSize)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .clipped()
+            } else {
+                PlaceholderImage(size: imageSize)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
             VStack(alignment: .leading, spacing: 4) {
                 Text(data.title)
                     .size14()
